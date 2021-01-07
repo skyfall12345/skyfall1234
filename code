@@ -1,0 +1,320 @@
+tfm.exec.disableAutoNewGame(true)
+tfm.exec.disableAutoShaman(true)
+tfm.exec.disableAutoTimeLeft(true)
+tfm.exec.disableAutoScore(true)
+cnx={}
+for a=1,141 do
+cnx[a] = a + 579
+end
+cny={}
+for a=1,136 do
+cny[a] = a + 244
+end
+prec={}
+for a=1,11 do
+prec[a] = a - 6
+end
+cnangle={180,195,210,225,240,255,270,285,300,315,330,345,360}
+cnanglef={240,255,270,285,300}
+fcnangle={180,195,210,225,330,345,360}
+int = 15
+timesc = -5
+deadCount = 0
+totaltimesv = 0
+avg = deadCount+totaltimesv
+record = 0
+record2 = 0
+record3 = 0
+leader = "None"
+leader2 = "None"
+leader3 = "None"
+datalb = {}
+datalbb = {}
+info1 = {}
+info2 = {}
+info3 = {}
+ 
+function eventNewPlayer(name)
+ui.addTextArea(2, "Highscore :\n\n1. "..leader.." - "..record.." seconds!!\n2. "..leader2.." - "..record2.." seconds!!\n3. "..leader3.." - "..record3.." seconds!!", name, 80, 25, 
+nil, nil, 0x000001, nil, 0.7)
+ui.addTextArea(3, "Room Average : -", name, 400, 25, 
+nil, nil, 0x000001, nil, 0.5)
+if record > 0 then
+ui.updateTextArea( 2,"Highscore :\n\n1. "..leader.." - "..record.." seconds!!\n2. "..leader2.." - "..record2.." seconds!!\n3. "..leader3.." - "..record3.." seconds!!",name)
+end
+end
+ 
+for name,player in pairs(tfm.get.room.playerList) do
+eventNewPlayer(name)
+end
+ 
+function eventNewGame()
+datalb = {name=0, a=a}
+tfm.exec.setGameTime (0, true)
+int = 21
+timesc = -2
+local time = {}
+iTime = os.time()
+time[1] = iTime
+ui.removeTextArea(1, nil)
+end
+ 
+function eventLoop(time, secTime)
+int = int - 1
+timesc = timesc + 0.5
+tfm.exec.setGameTime (timesc, true)
+if int == 17 then
+		info1[1] = fcnangle[math.random(#fcnangle)]
+		if info1[1] == 180 or info1[1] == 360 then
+			info1[2] = 520 + prec[math.random(#prec)]
+			info1[3] = 380 + prec[math.random(#prec)]
+		elseif info1[1] == 195 then
+			info1[2] = 645 + prec[math.random(#prec)]
+			info1[3] = 380 + prec[math.random(#prec)]
+		elseif info1[1] == 210 then
+			info1[2] = 740 + prec[math.random(#prec)]
+			info1[3] = 340 + prec[math.random(#prec)]
+		elseif info1[1] == 225 then
+			info1[2] = 560 + prec[math.random(#prec)]
+			info1[3] = 320 + prec[math.random(#prec)]
+		elseif info1[1] == 330 then
+			info1[2] = 780 + prec[math.random(#prec)]
+			info1[3] = 320 + prec[math.random(#prec)]
+		elseif info1[1] == 345 then
+			info1[2] = 690 + prec[math.random(#prec)]
+			info1[3] = 240 + prec[math.random(#prec)]
+		end
+ 
+		tfm.exec.addShamanObject(0, info1[2], info1[3], info1[1]+180, 0, 0, false)
+		end
+ 
+if int == 15 then
+		tfm.exec.addShamanObject(17, info1[2], info1[3], info1[1], 0, 0, false)
+		if info1[1] == 195 or info1[1] == 345 then
+			info2[1] = cnanglef[math.random(#cnanglef)]
+		elseif info1[1] == 225 then
+			info2[1] = 270
+		elseif info1[1] == 210 then
+			info2[1] = cnanglef[math.random(#cnanglef)]
+		elseif info1[1] == 330 then
+			info2[1] = cnanglef[math.random(#cnanglef)]
+		else
+			info2[1] = cnangle[math.random(#cnangle)]
+		end
+ 
+if info1[1] == 180 or info1[1] == 360 then
+		if info2[1] == 180 or info2[1] == 360 then
+			info2[2] = info1[2]
+			info2[1] = 360
+		elseif info2[1] == 195 then
+			info2[2] = info1[2]+60+prec[math.random(#prec)]
+		elseif info2[1] == 210 then
+			info2[2] = info1[2]+120+prec[math.random(#prec)]
+		elseif info2[1] == 225 then
+			info2[2] = info1[2]+10+prec[math.random(#prec)]
+		elseif info2[1] == 330 then
+			info2[2] = info1[2]+120+prec[math.random(#prec)]
+		elseif info2[1] == 345 then
+			info2[2] = info1[2]+120+prec[math.random(#prec)]
+		else
+			info2[2] = info1[2]+15+prec[math.random(#prec)]
+		end
+elseif info1[1] == 195 then
+		info2[2] = info1[2]-110+prec[math.random(#prec)]
+elseif info1[1] == 210 then
+		info2[2] = info1[2]-200+prec[math.random(#prec)]
+elseif info1[1] == 225 then
+		info2[2] = info1[2]+50+prec[math.random(#prec)]
+elseif info1[1] == 330 then
+		info2[2] = info1[2]-150+prec[math.random(#prec)]
+elseif info1[1] == 345 then
+		if info2[1] == 240 then
+			info2[2] = info1[2]-150+prec[math.random(#prec)]
+		elseif info2[1] == 255 then
+			info2[2] = info1[2]-130+prec[math.random(#prec)]
+		else
+			info2[2] = info1[2]-125+prec[math.random(#prec)]
+		end
+else
+		info2[2] = cnx[math.random(#cnx)]
+end
+ 
+if info1[1] == 180 or info1[1] == 360 then
+		if info2[1] == 180 or info2[1] == 360 then
+			info2[3] = info1[3]-120+prec[math.random(#prec)]
+		elseif info2[1] == 195 then
+			info2[3] = 300+prec[math.random(#prec)]
+		elseif info2[1] == 210 then
+			info2[3] = 280+prec[math.random(#prec)]
+		elseif info2[1] == 225 then
+			info2[3] = 330+prec[math.random(#prec)]
+		elseif info2[1] == 330 then
+			info2[3] = 325+prec[math.random(#prec)]
+		elseif info2[1] == 345 then
+			info2[3] = 260+prec[math.random(#prec)]
+		else
+			info2[3] = 350+prec[math.random(#prec)]
+		end
+elseif info1[1] == 345 or info1[1] == 195 then
+		info2[3] = 340+prec[math.random(#prec)]
+elseif info1[1] == 210 then
+		info2[3] = 340+prec[math.random(#prec)]
+elseif info1[1] == 225 then
+		info2[3] = 260+prec[math.random(#prec)]
+elseif info1[1] == 330 then
+		if info2[1] == 270 or info2[1] == 285 then
+			info2[3] = 330+prec[math.random(#prec)]
+		elseif info2[1] == 255 then
+			info2[3] = 275+prec[math.random(#prec)]
+		elseif info2[1] == 240 then
+			info2[3] = 195+prec[math.random(#prec)]
+		elseif info2[1] == 300 then
+			info2[3] = 315+prec[math.random(#prec)]
+		end
+else
+		info2[3] = cny[math.random(#cny)]
+end
+ 
+tfm.exec.addShamanObject(0, info2[2], info2[3], info2[1]+180, 0, 0, false)
+end
+ 
+if int == 13 then
+		tfm.exec.addShamanObject(17, info2[2], info2[3], info2[1], 0, 0, false)
+		if info1[1] == 180 or info1[1] == 360 then
+			if info2[1] == 180 or info2[1] == 360 then
+				info3[1] = 270
+			elseif info2[1] == 195 then
+				info3[1] = 270
+			elseif info2[1] == 210 then
+				info3[1] = 255
+			elseif info2[1] == 330 then
+				info3[1] = 270
+			elseif info2[1] == 345 then
+				info3[1] = 285
+			else
+				info3[1] = cnanglef[math.random(#cnanglef)]
+			end
+		elseif info1[1] == 225 then
+			if info2[1] == 270 then
+				info3[1] = 270
+			end
+		else
+			info3[1] = cnanglef[math.random(#cnanglef)]
+		end
+		if info1[1] == 180 or info1[1] == 360 then
+			if info2[1] == 180 or info2[1] == 360 then
+				info3[2] = info1[2]+10+prec[math.random(#prec)]
+			elseif info2[1] == 195 then
+				info3[2] = info1[2]+20+prec[math.random(#prec)]
+			elseif info2[1] == 210 then
+				info3[2] = info1[2]+10+prec[math.random(#prec)]
+			elseif info2[1] == 330 then
+				info3[2] = info1[2]+50+prec[math.random(#prec)]
+			elseif info2[1] == 345 then
+				info3[2] = info1[2]+10+prec[math.random(#prec)]
+			else
+				info3[2] = cnx[math.random(#cnx)]
+			end
+		elseif info1[1] == 225 then
+			if info2[1] == 270 then
+				info3[2] = 750+prec[math.random(#prec)]
+			end
+		else
+			info3[2] = cnx[math.random(#cnx)]
+		end
+		if info1[1] == 180 or info1[1] == 360 then
+			if info2[1] == 180 or info2[1] == 360 then
+				info3[3] = 350+prec[math.random(#prec)]
+			elseif info2[1] == 195 then
+				info3[3] = 330+prec[math.random(#prec)]
+			elseif info2[1] == 210 then
+				info3[3] = 340+prec[math.random(#prec)]
+			elseif info2[1] == 330 then
+				info3[3] = 310+prec[math.random(#prec)]
+			elseif info2[1] == 345 then
+				info3[3] = 320+prec[math.random(#prec)]
+			else
+				info3[3] = cny[math.random(#cny)]-30
+			end
+		elseif info1[1] == 225 then
+			if info2[1] == 270 then
+				info3[3] = 320+prec[math.random(#prec)]
+			end
+		else
+			info3[3] = cny[math.random(#cny)]-30
+		end
+		tfm.exec.addShamanObject(0, info3[2], info3[3], info3[1]+180, 0, 0, false)
+		end
+ 
+if int == 11 then
+tfm.exec.addShamanObject(17, info3[2], info3[3], info3[1], 0, 0, false)
+info1[1] = fcnangle[math.random(#fcnangle)]
+		if info1[1] == 180 or info1[1] == 360 then
+			info1[2] = 520 + prec[math.random(#prec)]
+			info1[3] = 380 + prec[math.random(#prec)]
+		elseif info1[1] == 195 then
+			info1[2] = 645 + prec[math.random(#prec)]
+			info1[3] = 380 + prec[math.random(#prec)]
+		elseif info1[1] == 210 then
+			info1[2] = 740 + prec[math.random(#prec)]
+			info1[3] = 340 + prec[math.random(#prec)]
+		elseif info1[1] == 225 then
+			info1[2] = 560 + prec[math.random(#prec)]
+			info1[3] = 320 + prec[math.random(#prec)]
+		elseif info1[1] == 330 then
+			info1[2] = 780 + prec[math.random(#prec)]
+			info1[3] = 320 + prec[math.random(#prec)]
+		elseif info1[1] == 345 then
+			info1[2] = 690 + prec[math.random(#prec)]
+			info1[3] = 240 + prec[math.random(#prec)]
+		end
+ 
+		tfm.exec.addShamanObject(0, info1[2], info1[3], info1[1]+180, 0, 0, false)
+int = 17
+end
+if int == 0 then
+tfm.exec.newGame(7487182, false)
+end
+end
+ 
+tfm.exec.newGame(7487182, false)
+ 
+function playerCount()
+local n=0
+for name, player in pairs(tfm.get.room.playerList) do
+if not player.isDead then
+n=n+1
+end
+end
+return n
+end
+ 
+function eventPlayerDied(dname)
+fTime=os.time()-iTime-3000
+z = fTime/1000
+deadCount = deadCount + 1
+totaltimesv = totaltimesv + z
+ui.addTextArea (1,dname.." - "..z.." seconds!", nil, 80, 105, 0, 0, 0x324650, 0xcccccc, 0.5, false )
+if z > record then
+leader, leader2, leader3 = dname, leader, leader2
+record, record2, record3 = z, record, record2
+ui.updateTextArea( 2,"Highscore :\n\n1. "..leader.." - "..record.." seconds!!\n2. "..leader2.." - "..record2.." seconds!!\n3. "..leader3.." - "..record3.." seconds!!",nil)
+elseif z > record2 then
+leader2, leader3 = dname, leader2
+record2, record3 = z, record2
+ui.updateTextArea( 2,"Highscore :\n\n1. "..leader.." - "..record.." seconds!!\n2. "..leader2.." - "..record2.." seconds!!\n3. "..leader3.." - "..record3.." seconds!!",nil)
+elseif z > record3 then
+leader3 = dname
+record3 = z
+ui.updateTextArea( 2,"Highscore :\n\n1. "..leader.." - "..record.." seconds!!\n2. "..leader2.." - "..record2.." seconds!!\n3. "..leader3.." - "..record3.." seconds!!",nil)
+end
+if playerCount() < 1 then
+ui.updateTextArea(3, "Room Average : "..totaltimesv/deadCount.." seconds.", name, 400, 25, 
+nil, nil, 0x000001, nil, 0.5)
+int = 8
+end
+end
+ 
+function eventChatCommand(name, sysexit)
+system.exit()
+end
